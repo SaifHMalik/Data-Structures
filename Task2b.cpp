@@ -140,90 +140,71 @@ public:
             cout << myQueue[k] << "\t";
         }
         cout << endl;
-
-        int key, j, key1;
-
-        for (int i = 1; i <= end; i++)
+        for (int i = 0; i <= end; i++)
         {
-
-            key = array[i];
-            key1 = myQueue[i];
-            j = i - 1;
-
-            while (j >= 0 && array[j] > key)
+            for (int j = 0; j <= end; j++)
             {
-                array[j + 1] = array[j];
-                myQueue[j + 1] = myQueue[j];
-                j = j - 1;
-            }
-            array[j + 1] = key;
-            myQueue[j + 1] = key1;
-        }
-        // for (int i = 0; i <= end; i++)
-        // {
-        //     for (int j = 0; j <= end; j++)
-        //     {
-        //         if (array[i] < array[j] || ((array[i] == array[j] && i < j)))
-        //         {
-        // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
-        //swap(array[i], array[j]);
-        // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
-        // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
-        // swap(myQueue[i], myQueue[j]);
-        // if (i > j && array[i] == array[j])
-        // {
-        //     swap(myQueue[i], myQueue[j]);
-        // }
-        // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
-        //}
-        // else if (i < j && array[i] == array[j])
-        // {
-        //     {
-        //         swap(myQueue[i], myQueue[j]);
-        //     }
-        // }
+                if (array[i] < array[j] || ((array[i] == array[j] && i < j)))
+                {
+                    // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
+                    swap(array[i], array[j]);
+                    // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
+                    // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
+                    swap(myQueue[i], myQueue[j]);
+                    // if (i > j && array[i] == array[j])
+                    // {
+                    //     swap(myQueue[i], myQueue[j]);
+                    // }
+                    // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
+                }
+                // else if (i < j && array[i] == array[j])
+                // {
+                //     {
+                //         swap(myQueue[i], myQueue[j]);
+                //     }
+                // }
 
-        // else if (array[i] == array[j])
+                // else if (array[i] == array[j])
+                // {
+                //     if (myQueue[i] > myQueue[j])
+                //     {
+                //         swap(myQueue[i], myQueue[j]);
+                //     }
+                // }
+            }
+            cout << "\nArray:" << endl;
+            for (int k = 0; k <= end; k++)
+            {
+                cout << array[k] << "\t";
+            }
+            cout << endl;
+            cout << "\nmyQueue:" << endl;
+            for (int k = 0; k <= end; k++)
+            {
+                cout << myQueue[k] << "\t";
+            }
+            cout << endl;
+        }
+        // for (int i = 0; i < end; i++)
         // {
-        //     if (myQueue[i] > myQueue[j])
+        //     if (array[i] == array[i + 1] && myQueue[i] > myQueue[i + 1])
         //     {
-        //         swap(myQueue[i], myQueue[j]);
+        //         swap(myQueue[i], myQueue[i + 1]);
         //     }
         // }
+        cout << "\nResult: Array" << endl;
+        for (int i = 0; i <= end; i++)
+        {
+            cout << array[i] << "\t";
+        }
+        cout << endl;
+        cout << "\nResult: myQueue" << endl;
+        for (int i = 0; i <= end; i++)
+        {
+            cout << myQueue[i] << "\t";
+        }
+        cout << endl;
     }
-    // cout << "\nArray:" << endl;
-    // for (int k = 0; k <= end; k++)
-    // {
-    //     cout << array[k] << "\t";
-    // }
-    // cout << endl;
-    // cout << "\nmyQueue:" << endl;
-    // for (int k = 0; k <= end; k++)
-    // {
-    //     cout << myQueue[k] << "\t";
-    // }
-    // cout << endl;
-    //}
-    // for (int i = 0; i < end; i++)
-    // {
-    //     if (array[i] == array[i + 1] && myQueue[i] > myQueue[i + 1])
-    //     {
-    //         swap(myQueue[i], myQueue[i + 1]);
-    //     }
-    // }
-    // cout << "\nResult: Array" << endl;
-    // for (int i = 0; i <= end; i++)
-    // {
-    //     cout << array[i] << "\t";
-    // }
-    // cout << endl;
-    // cout << "\nResult: myQueue" << endl;
-    // for (int i = 0; i <= end; i++)
-    // {
-    //     cout << myQueue[i] << "\t";
-    // }
-    // cout << endl;
-    //}
 };
 
 int main(void)
@@ -255,7 +236,7 @@ int main(void)
     int quota[size];
     int requirement[size];
 
-    while (lineNum < 4)
+    while (!is.eof())
     {
         getline(is, num);
         stringstream str(num);
@@ -372,11 +353,5 @@ int main(void)
     permutationNumbers.Result(a);
     cout << "\n\n\n\n\n";
 
-    permutationNumbers.displayQueue();
-
-    ofstream os("OutputFile2.txt");
-    for (int i = 0; i < size; i++)
-    {
-        os << permutationNumbers.removeQueue() << " ";
-    }
+    // permutationNumbers.displayQueue();
 }

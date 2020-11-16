@@ -1,3 +1,9 @@
+/*
+IDE: Visual Code 1.51.1
+Compiler: g++ (MinGW.org GCC Build-20200227-1) 9.2.0g++ (MinGW.org GCC Build-20200227-1) 9.2.0
+cppStandard: c++17
+*/
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -6,14 +12,17 @@
 
 using namespace std;
 
+// Queue Max Size is defined which is 500 here
 #define MAX 500
 
+// Queue Class is used for implementing the Task
 class Queue
 {
 protected:
+    // myQueue is the array in which the data is to be stored
     int myQueue[MAX];
-    int top;
-    int end;
+    int top; // top is used to access the top of the queue
+    int end; // end is used to access the end of the queue
 
 public:
     Queue()
@@ -22,12 +31,7 @@ public:
         end = -1;
     }
 
-    Queue(int _size)
-    {
-        top = -1;
-        end = -1;
-    }
-
+    // isQueueFull Function to check whether Queue is full or not
     bool isQueueFull()
     {
         if (end >= MAX - 1)
@@ -42,6 +46,7 @@ public:
         }
     }
 
+    // isQueueEmpty Function to check whether Queue is Empty or not
     bool isQueueEmpty()
     {
         if (end <= -1)
@@ -56,6 +61,7 @@ public:
         }
     }
 
+    // addQueue Function to add an element to the end of queue
     void addQueue(int num)
     {
         if (isQueueFull())
@@ -74,14 +80,9 @@ public:
             end++;
             myQueue[end] = num;
         }
-        cout << "\nmyQueue (Add Queue):" << endl;
-        for (int k = 0; k <= end; k++)
-        {
-            cout << myQueue[k] << "\t";
-        }
-        cout << endl;
     }
 
+    //removeQueue Function to remove from the top of the Queue
     int removeQueue()
     {
         if (isQueueEmpty())
@@ -100,18 +101,20 @@ public:
         }
     }
 
+    //displayQueue Function to display the data stored in the Queue
     void displayQueue()
     {
+        cout << "\nData: ";
         for (int i = top; i <= end; i++)
         {
-            cout << "Data: " << myQueue[i] << endl;
+            cout << myQueue[i] << " ";
         }
     }
 
+    // Processing Function to dividie processing needs by unit quota
     int *Processing(Queue &CPU, int *processed)
     {
 
-        cout << "\nProcessing" << endl;
         for (int i = 0; i <= end; i++)
         {
             processed[i] = (CPU.removeQueue() / this->removeQueue());
@@ -119,91 +122,31 @@ public:
             {
                 processed[i] = 1;
             }
-            cout << processed[i] << "\t";
-            //cout << "Data: " << processed[i] << endl;
         }
-        cout << endl;
         return processed;
     }
 
+    // Function to Sort the number of process to determine completion order
     void Result(int *array)
     {
-        cout << "\nArray:" << endl;
-        for (int k = 0; k <= end; k++)
-        {
-            cout << array[k] << "\t";
-        }
-        cout << endl;
-        cout << "\nmyQueue:" << endl;
-        for (int k = 0; k <= end; k++)
-        {
-            cout << myQueue[k] << "\t";
-        }
-        cout << endl;
-        for (int i = 0; i <= end; i++)
-        {
-            for (int j = 0; j <= end; j++)
-            {
-                if (array[i] < array[j] || ((array[i] == array[j] && i < j)))
-                {
-                    // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
-                    swap(array[i], array[j]);
-                    // cout << "Array i > j:\t" << array[i] << "\t" << array[j] << endl;
-                    // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
-                    swap(myQueue[i], myQueue[j]);
-                    // if (i > j && array[i] == array[j])
-                    // {
-                    //     swap(myQueue[i], myQueue[j]);
-                    // }
-                    // cout << "myQueue i > j:\t" << myQueue[i] << "\t" << myQueue[j] << endl;
-                }
-                // else if (i < j && array[i] == array[j])
-                // {
-                //     {
-                //         swap(myQueue[i], myQueue[j]);
-                //     }
-                // }
+        int key, j, key1;
 
-                // else if (array[i] == array[j])
-                // {
-                //     if (myQueue[i] > myQueue[j])
-                //     {
-                //         swap(myQueue[i], myQueue[j]);
-                //     }
-                // }
-            }
-            cout << "\nArray:" << endl;
-            for (int k = 0; k <= end; k++)
-            {
-                cout << array[k] << "\t";
-            }
-            cout << endl;
-            cout << "\nmyQueue:" << endl;
-            for (int k = 0; k <= end; k++)
-            {
-                cout << myQueue[k] << "\t";
-            }
-            cout << endl;
-        }
-        // for (int i = 0; i < end; i++)
-        // {
-        //     if (array[i] == array[i + 1] && myQueue[i] > myQueue[i + 1])
-        //     {
-        //         swap(myQueue[i], myQueue[i + 1]);
-        //     }
-        // }
-        cout << "\nResult: Array" << endl;
-        for (int i = 0; i <= end; i++)
+        for (int i = 1; i <= end; i++)
         {
-            cout << array[i] << "\t";
+
+            key = array[i];
+            key1 = myQueue[i];
+            j = i - 1;
+
+            while (j >= 0 && array[j] > key)
+            {
+                array[j + 1] = array[j];
+                myQueue[j + 1] = myQueue[j];
+                j = j - 1;
+            }
+            array[j + 1] = key;
+            myQueue[j + 1] = key1;
         }
-        cout << endl;
-        cout << "\nResult: myQueue" << endl;
-        for (int i = 0; i <= end; i++)
-        {
-            cout << myQueue[i] << "\t";
-        }
-        cout << endl;
     }
 };
 
@@ -211,7 +154,6 @@ int main(void)
 {
     int size, lineNum = 1;
     string num;
-    //Queue numofProcess;
     Queue permutationNumbers;
     Queue quotaUnits;
     Queue CPUProcess;
@@ -236,7 +178,7 @@ int main(void)
     int quota[size];
     int requirement[size];
 
-    while (!is.eof())
+    while (lineNum < 4)
     {
         getline(is, num);
         stringstream str(num);
@@ -245,7 +187,6 @@ int main(void)
             for (int i = 0; i < size; i++)
             {
                 getline(str, num, ' ');
-                cout << "Loop 1:\t" << i << num << endl;
                 permutation[i] = stoi(num);
             }
         }
@@ -254,7 +195,6 @@ int main(void)
             for (int i = 0; i < size; i++)
             {
                 getline(str, num, ' ');
-                cout << "Loop 2:\t" << i << num << endl;
                 quota[i] = stoi(num);
             }
         }
@@ -263,65 +203,11 @@ int main(void)
             for (int i = 0; i < size; i++)
             {
                 getline(str, num, ' ');
-                cout << "Loop 3:\t" << i << num << endl;
                 requirement[i] = stoi(num);
             }
         }
         lineNum++;
     }
-
-    // while (!is.eof())
-    // {
-    //     cout << "While" << endl;
-    //     for (int i = 0; i < size - 1; i++)
-    //     {
-    //         getline(is, num, ' ');
-    //         cout << "Loop 1:\t" << i << num << endl;
-    //         permutation[i] = stoi(num);
-    //     }
-
-    //     for (int i = 0; i < size - 1; i++)
-    //     {
-    //         getline(is, num, ' ');
-    //         cout << "Loop 2:\t" << i << num << endl;
-    //         quota[i] = stoi(num);
-    //     }
-
-    //     for (int i = 0; i < size - 1; i++)
-    //     {
-    //         getline(is, num, ' ');
-    //         cout << "Loop 3:\t" << i << num << endl;
-    //         requirement[i] = stoi(num);
-    //     }
-    // }
-    cout << endl;
-    for (int i = 0; i < size; i++)
-    {
-        cout << permutation[i] << "\t";
-    }
-    cout << endl;
-    for (int i = 0; i < size; i++)
-    {
-        cout << quota[i] << "\t";
-    }
-    cout << endl;
-    for (int i = 0; i < size; i++)
-    {
-        cout << requirement[i] << "\t";
-    }
-    cout << endl;
-    // getline(is, num);
-
-    int alength = num.length();
-    // vector<int> permutation;
-
-    // for (int i = 0; num[i] != '\0'; i++)
-    // {
-    //     if (num[i] == ' ')
-    //     {
-    //         j++;
-    //     }
-    // }
 
     for (int i = 0; i < size; i++)
     {
@@ -342,16 +228,13 @@ int main(void)
 
     int *a = quotaUnits.Processing(CPUProcess, processed);
 
-    cout << endl
-         << "\nData:\n";
-
-    // for (int i = 0; i < size; i++)
-    // {
-    //     cout << a[i] << "\t";
-    // }
-
     permutationNumbers.Result(a);
-    cout << "\n\n\n\n\n";
 
-    // permutationNumbers.displayQueue();
+    permutationNumbers.displayQueue();
+
+    ofstream os("OutputFile2.txt");
+    for (int i = 0; i < size; i++)
+    {
+        os << permutationNumbers.removeQueue() << " ";
+    }
 }
