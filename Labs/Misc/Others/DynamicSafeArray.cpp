@@ -174,4 +174,6 @@ int main(void)
     cout << "Enter Value to Search" << endl;
     cin >> value;
     ob.searching(value);
+
+    ob << ob;
 }

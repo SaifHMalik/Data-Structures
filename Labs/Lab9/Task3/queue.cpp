@@ -10,7 +10,7 @@ Queue::Queue()
 
 bool Queue::isFull()
 {
-    if (front == MAX - 1)
+    if (end == MAX - 1)
     {
         cout << "QUEUE is FULL" << endl;
         return true;
