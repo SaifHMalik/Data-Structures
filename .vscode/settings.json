@@ -63,7 +63,8 @@
         "xtr1common": "cpp",
         "xtree": "cpp",
         "deque": "cpp",
-        "concepts": "cpp"
+        "concepts": "cpp",
+        "queue": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.dimInactiveRegions": false
